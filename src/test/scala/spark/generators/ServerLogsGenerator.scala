@@ -13,6 +13,7 @@ class ServerLogsGenerator extends FunSuite with ShouldMatchers with GeneratorDri
 
   val currentLocationGen: Gen[String] = Gen.oneOf('A' to 'Z').map(_.toString)
   val searchLocationGen: Gen[String] = Gen.oneOf(Gen.oneOf('A' to 'Z').map(_.toString), Gen.const(""))
+  val locationFilterGen: Gen[String] = Gen.oneOf(Gen.oneOf('A' to 'Z').map(_.toString), Gen.const(""))
   val minimumPriceGen: Gen[Double] = Gen.oneOf(Gen.choose(1000.0, 8000.0), Gen.const(-1.0))
   val maximumPriceGen: Gen[Double] = Gen.oneOf(Gen.choose(4500.0, 18000.0), Gen.const(-1.0))
 
@@ -21,9 +22,22 @@ class ServerLogsGenerator extends FunSuite with ShouldMatchers with GeneratorDri
     sessionId <- sessionIdGen
     currentLocation <- currentLocationGen
     searchLocation <- searchLocationGen
+    locationFilter <- locationFilterGen
     minimumPrice <- minimumPriceGen
     maximumPrice <- maximumPriceGen
-  } yield ServerLog(userId, sessionId, currentLocation, searchLocation, locationFilter = searchLocation, minimumPrice, maximumPrice)
+  } yield
+    ServerLog(
+      userId,
+      sessionId,
+      currentLocation,
+      searchLocation,
+      locationFilter = if (Math.random() > 0.2) {
+        searchLocation
+      } else {
+        locationFilter
+      }
+      ,
+      minimumPrice, maximumPrice)
 
   test("Generate some server logs...") {
     forAll(Gen.listOfN(1000, surveyLogGen)) {

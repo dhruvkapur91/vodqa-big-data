@@ -1,0 +1,3 @@
+userId,sessionId,currentLocation,searchLocation,locationFilter,minimumPriceFilter,maximumPriceFilter
+1,1,A,P,P,-1,-1
+1,2,A,P,P,-1,-1
