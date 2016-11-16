@@ -15,7 +15,7 @@ trait DataFrameEquality {
     (actual: DataFrame) => assertDataFrameApproximateEqualsWithOrderIndependence(expected, actual, 0.1)
   }
 
-  implicit class ColgaTestableDataFrame(actual: DataFrame) {
+  implicit class TestableDataFrame(actual: DataFrame) {
     def should(dataFrameAssertion: DataFrameAssertion) = dataFrameAssertion(actual)
   }
 

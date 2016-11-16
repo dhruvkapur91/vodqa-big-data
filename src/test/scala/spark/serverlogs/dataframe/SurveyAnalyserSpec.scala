@@ -9,9 +9,9 @@ import spark.utils.{DataFrameEquality, SharedSQLContext}
 
 class SurveyAnalyserSpec extends FunSuite with ShouldMatchers with GivenWhenThen with SharedSparkContext with DataFrameEquality with BeforeAndAfterAll {
 
+  lazy val sqlContext = new SQLContext(sc)
 
   test("Sample test by creating collections") {
-    val sqlContext = new SQLContext(sc)
     Given("A sequence of server logs")
     val serverLog1 = ServerLog(1,1,"A","P","P",-1,-1)
     val serverLog2 = ServerLog(1,2,"A","Q","Q",-1,-1)
@@ -27,7 +27,6 @@ class SurveyAnalyserSpec extends FunSuite with ShouldMatchers with GivenWhenThen
 
   test("Sample test by reading external file") {
     Given("A server logs csv file")
-    val sqlContext = new SQLContext(sc)
     val inputServerLogs = sqlContext.read
       .format("com.databricks.spark.csv")
       .option("header", "true")
