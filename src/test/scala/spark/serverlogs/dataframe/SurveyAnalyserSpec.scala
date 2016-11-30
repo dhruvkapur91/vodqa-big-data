@@ -38,7 +38,7 @@ class SurveyAnalyserSpec extends FunSuite with ShouldMatchers with GivenWhenThen
       .format("com.databricks.spark.csv")
       .option("header", "true")
       .option("inferSchema", "true")
-      .load("src/test/resources/server_logs_old")
+      .load("src/test/resources/server_logs")
 
     When("We search for valid search records")
     val outputSearchLogs = ServerLogAnalyzer.validRecordsForSearch(inputServerLogs)

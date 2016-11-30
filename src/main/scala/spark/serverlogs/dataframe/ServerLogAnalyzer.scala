@@ -18,7 +18,7 @@ object ServerLogAnalyzer extends App {
     .format("com.databricks.spark.csv")
     .option("header", "true")
     .option("inferSchema", "true")
-    .load("src/main/resources/server_logs_old")
+    .load("src/main/resources/server_logs")
 
   println("We can see the server logs!")
   serverLogs.show()
