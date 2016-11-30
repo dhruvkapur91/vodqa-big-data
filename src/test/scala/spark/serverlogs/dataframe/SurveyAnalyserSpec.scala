@@ -1,27 +1,19 @@
 package spark.serverlogs.dataframe
 
 import com.holdenkarau.spark.testing.SharedSparkContext
-import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.{DataFrame, Row, SQLContext}
-import org.scalatest.{BeforeAndAfterAll, FunSuite, GivenWhenThen, ShouldMatchers}
+import org.apache.spark.sql.{DataFrame, SQLContext}
+import org.scalatest.{FunSuite, GivenWhenThen, ShouldMatchers}
 import spark.ServerLog
-import spark.utils.{DataFrameEquality, SharedSQLContext}
+import spark.utils.DataFrameEquality
 
-
-class SomeTest extends FunSuite with ShouldMatchers {
-  test("test something") {
-    assert(1 == 1)
-    1 should be(1)
-  }
-}
 
 class SurveyAnalyserSpec extends FunSuite with ShouldMatchers with GivenWhenThen with SharedSparkContext with DataFrameEquality {
 
   lazy val sqlContext = new SQLContext(sc)
 
   test("Sample test by creating collections") {
-    Given("A sequence of server logs")
-    val serverLog = ServerLog(1,1,"A","P","P",-1,-1)
+    Given("A sequence of valid server logs")
+    val serverLog = ServerLog(1,1,"Delhi","Hyderabad","Hyderabad",-1,-1)
     val serverLogs = Seq(serverLog)
     val inputServerLogs: DataFrame = sqlContext.createDataFrame(serverLogs)
 
