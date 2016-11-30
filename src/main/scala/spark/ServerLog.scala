@@ -7,7 +7,9 @@ case class ServerLog(userId: Long,
                      locationFilter: String,
                      minimumPriceFilter: Double,
                      maximumPriceFilter: Double) {
-  def toCSV = s"$userId,$sessionId,$currentLocation,$searchLocation,$locationFilter,$minimumPriceFilter,$maximumPriceFilter"
+  val minimumPriceFilterString = f"$minimumPriceFilter%1.2f"
+  val maximumPriceFilterString = f"$maximumPriceFilter%1.2f"
+  def toCSV = s"$userId,$sessionId,$currentLocation,$searchLocation,$locationFilter,$minimumPriceFilterString,$maximumPriceFilterString"
 }
 
 
