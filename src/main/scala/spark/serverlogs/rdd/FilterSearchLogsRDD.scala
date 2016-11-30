@@ -11,7 +11,7 @@ object FilterSearchLogsRDD extends App {
   val sc = new SparkContext(conf)
 
   // creating RDD
-  private val serverLogs: RDD[String] = sc.textFile("/Users/dhruvkapur/Projects/vodka/src/main/resources/server_logs_without_headers")
+  private val serverLogs: RDD[String] = sc.textFile("/Users/dhruvkapur/Projects/vodka/src/main/resources/server_logs_without_headers_old")
 
   println(s"Number of logs are ???")
 

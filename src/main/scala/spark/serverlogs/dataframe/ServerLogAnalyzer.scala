@@ -18,7 +18,7 @@ object ServerLogAnalyzer extends App {
     .format("com.databricks.spark.csv")
     .option("header", "true")
     .option("inferSchema", "true")
-    .load("src/main/resources/server_logs")
+    .load("src/main/resources/server_logs_old")
 
   println("We can see the server logs!")
   serverLogs.show()
@@ -39,7 +39,7 @@ object ServerLogAnalyzer extends App {
   }
 
   def mostSearchedLocation(serverLogs: DataFrame) :  DataFrame = {
-    serverLogs.agg(max("searchLocation") as "mostSearchedLocation", count("searchLocation") as "numberOfHits")
+    validRecordsForSearch(serverLogs).agg(max("searchLocation") as "mostSearchedLocation", count("searchLocation") as "numberOfHits")
   }
 
 

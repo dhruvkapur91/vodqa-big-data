@@ -3,7 +3,7 @@ package spark.wordcountrdd
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
-object WordCount extends App {
+object HelloWorldRDD extends App {
 
   // spark app in a local mode.
   val conf = new SparkConf().setMaster("local[*]").setAppName("Word count")
@@ -14,8 +14,12 @@ object WordCount extends App {
   val sentences = Seq(sentenceOne,sentenceTwo)
 
   // creating RDD
-  private val sentencesRDD: RDD[String] = sc.parallelize(sentences)
+  val sentencesRDD: RDD[String] = sc.parallelize(sentences)
 
-  sc.stop()
+  val words = sentencesRDD.flatMap(sentence => sentence.split(" "))
+  val result = words.map(word => (word, 1)).reduceByKey((word1, word2) => word1 + word2)
+
+  // printing RDD
+  result.collect().foreach(println)
 
 }
