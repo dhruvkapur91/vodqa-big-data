@@ -11,7 +11,7 @@ object ServerLogAnalyzerByRDD extends App {
   val sc = new SparkContext(conf)
 
   // creating RDD
-  private val serverLogs: RDD[String] = sc.textFile("/Users/dhruvkapur/Projects/vodka/src/main/resources/server_logs_without_headers_old")
+  private val serverLogs: RDD[String] = sc.textFile("src/main/resources/server_logs_without_headers")
 
   println(s"Number of logs are ???")
 
